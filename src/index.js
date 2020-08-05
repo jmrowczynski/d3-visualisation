@@ -1,2 +1,7 @@
-import * as d3 from d3;
+import drawGraph from "./graph";
 
+// document.body.addEventListener("click", () => {
+//   console.log("a");
+//   graph.update;
+// });
+drawGraph();
