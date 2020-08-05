@@ -1,12 +1,21 @@
+body {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: hsla(260, 50%, 50%, 1);
+}
+
 .buttons {
   margin-top: 15px;
   display: flex;
   justify-content: space-evenly;
-  /* background: steelblue; */
   padding: 30px;
 }
 
 .buttons button {
+  color: hsla(260, 50%, 50%, 1);
   border: none;
   width: 100px;
   height: 100px;
