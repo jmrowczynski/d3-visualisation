@@ -12,6 +12,36 @@ const graph = () => {
 
   const t = d3.transition().duration(600);
 
+  function zoom(svg) {
+    const extent = [
+      [margin.left, margin.top],
+      [width - margin.right, height - margin.top],
+    ];
+
+    svg.call(
+      d3
+        .zoom()
+        .scaleExtent([1, 8])
+        .translateExtent(extent)
+        .extent(extent)
+        .on("zoom", zoomed)
+    );
+
+    function zoomed() {
+      x.range(
+        [margin.left, width - margin.right].map((d) =>
+          d3.event.transform.applyX(d)
+        )
+      );
+      svg
+        .selectAll("rect")
+        .attr("x", (d) => x(d.name))
+        .attr("width", x.bandwidth());
+
+      gx.call(xAxis);
+    }
+  }
+
   const updateBars = (data) => {
     const bar = svg.selectAll("rect").data(data, (d) => d.name);
     bar
@@ -77,7 +107,10 @@ const graph = () => {
   const yAxis = (g) =>
     g.call(d3.axisLeft(y)).attr("transform", `translate(${margin.left}, 0)`);
 
-  const svg = d3.create("svg").attr("viewBox", [0, 0, width, height]);
+  const svg = d3
+    .create("svg")
+    .attr("viewBox", [0, 0, width, height])
+    .call(zoom);
 
   updateBars(data);
 
